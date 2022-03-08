@@ -52,14 +52,21 @@ const TaskInput = () => {
   
   const dispatch = useDispatch();
 
+  const addTaskWithCheck = () => {
+    if(value !== undefined && value !== '' && value.length > 1)
+    {
+      dispatch(addTaskCreator(value));
+      setValue(undefined);
+    }
+  }
 
   return (
     <>
       <h1>What's the Plan for Today?</h1>
-      
+
     <InputWrapper>
-      <input onChange={e => setValue(e.target.value)} onBlur={e => e.target.value = ''}></input>
-      <button onClick={() => {dispatch(addTaskCreator(value))}}><FontAwesomeIcon icon={faPen} /></button>
+      <input onChange={e => setValue(e.target.value)} onBlur={e => {e.target.value = '';}}></input>
+      <button onClick={addTaskWithCheck}><FontAwesomeIcon icon={faPen} /></button>
     </InputWrapper>
     </>
   );

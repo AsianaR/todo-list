@@ -34,15 +34,24 @@ const StyledLi = styled.li`
 const TaskItem = (props) => {
         const [isChecked, setChecked] = useState(false);    
         const dispatch = useDispatch();
-        console.log(props.key);
+
+        const deleteTaskWithCheck = () => {
+            setChecked(true);
+            setTimeout(() => {
+                setChecked(false);
+                dispatch(deleteTaskCreator(props.text));
+
+            }, 300);
+        };
+
     return(
         <StyledLi>
                           
-            <p style={isChecked? {textDecoration: "line-through", color: "#E5E4E2"} : { textDecoration : "none"}}>{props?.text}</p>
+            <p style={isChecked? {textDecoration: "line-through"} : { textDecoration : "none"}}>{props?.text}</p>
             <span>
-
-            <button onClick={() => setChecked(true)}  style={isChecked? {visibility: "hidden"} : {visibility : "visible"}}><FontAwesomeIcon icon={faCheck} /></button>
-            <button onClick={ () => {dispatch(deleteTaskCreator(props.text))}}><FontAwesomeIcon icon={faXmark} /></button>
+            
+            <button onClick={ deleteTaskWithCheck }  style={isChecked? {visibility: "hidden"} : {visibility : "visible"}}><FontAwesomeIcon icon={faCheck} /></button>
+            {/* <button onClick={ deleteTaskWithCheck }><FontAwesomeIcon icon={faXmark} /></button> */}
             </span>
             
         </StyledLi>
